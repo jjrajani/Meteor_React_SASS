@@ -45,7 +45,7 @@ export default class Task extends Component {
                 <input
                     type="checkbox"
                     checked={this.props.task.checked}
-                    onClick={this.toggleChecked.bind(this)}
+                    onChange={this.toggleChecked.bind(this)}
                 />
                 {this.props.showPrivateButton &&
                     <button
@@ -65,8 +65,7 @@ export default class Task extends Component {
 }
 
 Task.propTypes = {
-    // This component gets the task to display through a React prop.
-    // We can use propTypes to indicate it is required
+    /* Component */
     task: PropTypes.object.isRequired,
     showPrivateButton: PropTypes.bool.isRequired
 };
