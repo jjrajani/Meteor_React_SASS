@@ -9,23 +9,37 @@ import { connect } from 'react-redux';
 import { Tasks } from '../api/tasks.js';
 /* Components */
 import Task from './Task.jsx';
+import Header from './Header';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import NewTaskForm from './NewTaskForm.jsx';
+import ListViewToggle from './ListViewToggle';
+
 /* Task List Container Component */
 const TaskList = ({ tasks, hideCompleted, currentUser }) => {
     let filteredTasks = tasks;
     if (hideCompleted) {
         filteredTasks = filteredTasks.filter(task => !task.checked);
     }
-    return filteredTasks.map(task => {
-        const currentUserId = currentUser && currentUser._id;
-        const showPrivateButton = task.owner === currentUserId;
-        return (
-            <Task
-                key={task._id}
-                task={task}
-                showPrivateButton={showPrivateButton}
-            />
-        );
-    });
+    return (
+        <div>
+            <Header>
+                <ListViewToggle />
+                <AccountsUIWrapper />
+                <NewTaskForm />
+            </Header>
+            {filteredTasks.map(task => {
+                const currentUserId = currentUser && currentUser._id;
+                const showPrivateButton = task.owner === currentUserId;
+                return (
+                    <Task
+                        key={task._id}
+                        task={task}
+                        showPrivateButton={showPrivateButton}
+                    />
+                );
+            })}
+        </div>
+    );
 };
 
 TaskList.propTypes = {
@@ -41,6 +55,7 @@ function mapStateToProps({ todoList }) {
 }
 
 function TaskListContainer() {
+    Meteor.subscribe('tasks');
     return {
         tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
         currentUser: Meteor.user()

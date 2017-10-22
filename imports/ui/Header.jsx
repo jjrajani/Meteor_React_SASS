@@ -8,9 +8,7 @@ import { Tasks } from '../api/tasks.js';
 const Header = ({ incompleteCount, children }) => {
     return (
         <header>
-            <h1>
-                Todo List ({incompleteCount})
-            </h1>
+            <h1>Todo List ({incompleteCount})</h1>
             {children}
         </header>
     );

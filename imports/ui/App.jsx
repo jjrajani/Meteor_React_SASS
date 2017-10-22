@@ -1,20 +1,25 @@
 /* Globals */
 import React from 'react';
 /* Components */
-import Header from './Header';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-import NewTaskForm from './NewTaskForm.jsx';
+import Nav from './Nav';
+import Users from './Users';
 import TaskList from './TaskList';
-import ListViewToggle from './ListViewToggle';
+
+import { Router, Route, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+const browserHistory = createBrowserHistory();
 // App component - represents the whole app
-const App = () =>
-    <div className="container">
-        <Header>
-            <ListViewToggle />
-            <AccountsUIWrapper />
-            <NewTaskForm />
-        </Header>
-        <TaskList />
-    </div>;
+const App = () => {
+    return (
+        <Router history={browserHistory}>
+            <div className="container">
+                <Nav />
+                <Route exact path="/todos" component={TaskList} />
+                <Route exact path="/users" component={Users} />
+            </div>
+        </Router>
+    );
+};
 
 export default App;
