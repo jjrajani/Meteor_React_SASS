@@ -43,9 +43,6 @@ class App extends Component {
             const currentUserId =
                 this.props.currentUser && this.props.currentUser._id;
             const showPrivateButton = task.owner === currentUserId;
-            console.log('currentUserId', currentUserId);
-            console.log('showPrivateButton', showPrivateButton);
-            console.log('task.owner', task.owner);
             return (
                 <Task
                     key={task._id}
